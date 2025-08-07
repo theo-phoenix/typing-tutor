@@ -4,14 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Typing Tutor</title>
-  <!--
-    Simple typing tutor web application.
-    This page references the external stylesheet (style.css) and the main
-    application script (script.js).  The JavaScript is broken into
-    self‑invoking modules within script.js to organise the logic for
-    measuring typing metrics, adjusting difficulty, providing feedback
-    and wiring up the user interface.
-  -->
+  <!-- Use relative paths for local assets -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,26 +12,15 @@
     <h1>Typing Tutor</h1>
   </header>
   <div class="container">
-    <!-- Sidebar containing the hierarchical list of lessons.  Each
-         lesson selection is created at runtime by JavaScript based on
-         the defined curriculum.  On narrow screens the sidebar and
-         typing panel stack vertically, while on wider screens they
-         appear side by side. -->
     <aside class="lesson-list" id="lessonList">
       <h2 class="list-title">Lessons</h2>
-      <!-- Lessons will be injected here by script.js -->
+      <!-- lessons inserted by script -->
     </aside>
 
-    <!-- Main panel where the current lesson text is displayed along
-         with real‑time metrics and navigation controls. -->
     <main class="typing-panel">
       <div id="lessonHeader" class="lesson-header"></div>
-      <!-- Text to type is rendered as a series of span elements so
-           that each character can be individually coloured to indicate
-           correct/incorrect/cursor state. -->
       <div class="display-area" id="displayText"></div>
-      <!-- Hidden input used solely to capture focus on mobile devices.
-           Typing is listened for globally via keydown events. -->
+      <!-- hidden input used to capture focus on mobile -->
       <input type="text" id="hiddenInput" autocomplete="off" autocorrect="off"
              autocapitalize="off" spellcheck="false" class="hidden-input" />
       <div class="metrics">
@@ -46,28 +28,22 @@
         <span>Accuracy: <strong id="accuracy">100</strong>%</span>
         <span>Reaction: <strong id="reaction">0</strong>ms</span>
       </div>
-      <!-- Completion message shown when a lesson is finished.  The
-           button allows the user to proceed to the next lesson as
-           determined by the adaptive engine. -->
       <div id="lessonComplete" class="lesson-complete hidden">
         <p>Lesson complete!</p>
         <button id="nextLessonBtn" class="next-button">Next Lesson</button>
       </div>
     </main>
   </div>
-  <!-- Modal used for displaying achievement badges.  The modal is
-       hidden by default and appears when a badge is awarded. -->
+
   <div id="badgeModal" class="modal hidden">
     <div class="modal-content">
       <p id="badgeText"></p>
       <button id="badgeClose" class="modal-close">Close</button>
     </div>
   </div>
-  <!-- Message bar for caustic feedback.  It appears temporarily
-       whenever the adaptive engine detects stagnation and selects a
-       playful admonition in Nigerian Pidgin mixed with English. -->
   <div id="messageBar" class="message-bar hidden"></div>
 
+  <!-- Use relative path for script -->
   <script src="script.js"></script>
 </body>
 </html>
