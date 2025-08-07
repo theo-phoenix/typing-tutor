@@ -1,0 +1,328 @@
+/*
+  Global stylesheet for the Typing Tutor application.
+
+  Design tokens such as colours, fonts and spacings are defined at the
+  root level using CSS variables.  These variables make it simple to
+  adjust the look and feel of the application consistently across all
+  elements.  The layout adapts gracefully to different screen sizes
+  using flexbox and a media query for small screens.
+*/
+
+:root {
+  /* Colour palette */
+  --primary: #556B2F;         /* Olive green used for highlights */
+  --primary-dark: #445223;    /* Darker shade of olive for accents */
+  --background: #F5F5F5;      /* Light neutral background */
+  --foreground: #2A2A2A;      /* Dark text colour */
+  --secondary: #808080;       /* Neutral grey for secondary text */
+  --error: #C04444;           /* Red used for incorrect characters */
+  --success: #4C9A2A;         /* Green used for confetti pieces */
+
+  /* Typography */
+  --font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-size-base: 16px;
+
+  /* Spacing */
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  background-color: var(--background);
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header.app-header {
+  padding: var(--spacing-large) var(--spacing-medium);
+  background-color: var(--primary);
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+  flex: 1 1 auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--spacing-medium);
+  gap: var(--spacing-medium);
+}
+
+/* Sidebar with lesson list */
+.lesson-list {
+  flex: 0 0 28%;
+  background: #ffffff;
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  padding: var(--spacing-medium);
+  overflow-y: auto;
+  max-height: calc(100vh - 6rem);
+}
+
+.list-title {
+  margin-bottom: var(--spacing-medium);
+  color: var(--primary);
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.level-group {
+  margin-bottom: var(--spacing-medium);
+}
+
+.level-title {
+  margin-bottom: var(--spacing-small);
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.lesson-items {
+  list-style: none;
+  padding-left: 0;
+}
+
+.lesson-item {
+  padding: var(--spacing-small) var(--spacing-medium);
+  margin-bottom: var(--spacing-small);
+  border: 1px solid var(--secondary);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  background-color: #ffffff;
+  color: var(--foreground);
+}
+
+.lesson-item:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.lesson-item.selected {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+/* Typing panel */
+.typing-panel {
+  flex: 1 1 70%;
+  background: #ffffff;
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  padding: var(--spacing-large);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.lesson-header {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-medium);
+  color: var(--primary);
+}
+
+.display-area {
+  flex: 1 1 auto;
+  min-height: 150px;
+  padding: var(--spacing-medium);
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  background-color: #fafafa;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  margin-bottom: var(--spacing-medium);
+}
+
+/* Character highlighting */
+.display-area .char {
+  white-space: pre;
+}
+.display-area .char.current {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+.display-area .char.correct {
+  color: var(--primary);
+}
+.display-area .char.incorrect {
+  color: var(--error);
+  text-decoration: underline;
+}
+
+.metrics {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-medium);
+  flex-wrap: wrap;
+}
+
+.metrics span {
+  margin-right: var(--spacing-medium);
+  color: var(--foreground);
+}
+
+.lesson-complete {
+  text-align: center;
+  margin-top: var(--spacing-large);
+}
+
+.lesson-complete p {
+  margin-bottom: var(--spacing-small);
+  font-weight: bold;
+}
+
+.next-button {
+  padding: var(--spacing-small) var(--spacing-medium);
+  border: none;
+  background-color: var(--primary);
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.next-button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Hidden elements */
+.hidden {
+  display: none;
+}
+
+.hidden-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Modal for achievements */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Ensure that a modal with the 'hidden' class is not displayed.
+   Because the .modal rule above sets display:flex, the .hidden rule
+   defined earlier would be overridden.  This rule uses greater
+   specificity to force the element to be hidden when both classes are
+   present. */
+.modal.hidden {
+  display: none !important;
+}
+
+/* Likewise hide the message bar when the hidden class is applied. */
+.message-bar.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: var(--spacing-large);
+  border-radius: 4px;
+  text-align: center;
+  max-width: 300px;
+}
+
+.modal-close {
+  margin-top: var(--spacing-medium);
+  padding: var(--spacing-small) var(--spacing-medium);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Message bar for caustic remarks */
+.message-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8e2a1;
+  color: #5a3e02;
+  padding: var(--spacing-small) var(--spacing-medium);
+  text-align: center;
+  font-weight: bold;
+  z-index: 1001;
+}
+
+/* Confetti animation */
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  opacity: 0.9;
+  z-index: 999;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: confetti-fall 2.5s linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive layout: stack on small screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .lesson-list {
+    flex: 1 1 auto;
+    margin-bottom: var(--spacing-medium);
+    max-height: none;
+  }
+  .typing-panel {
+    flex: 1 1 auto;
+  }
+  .metrics {
+    flex-direction: column;
+    gap: var(--spacing-small);
+  }
+}
